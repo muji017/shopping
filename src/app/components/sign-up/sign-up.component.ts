@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class SignUpComponent {
 
   signupForm!: FormGroup
+  private dataSubscription: Subscription | undefined;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -34,10 +36,15 @@ export class SignUpComponent {
       return
     }
     const form=this.signupForm.value
-    this.service.signUp(form).subscribe((res) => {
+    this.dataSubscription=this.service.signUp(form).subscribe((res) => {
       console.log(res);
 
       this.toastr.success('Successfully registered');
     })
+  }
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
   }
 }
