@@ -20,12 +20,11 @@ export class ProductService {
   getSearchProduct(key:string):Observable<ProductList>{
     return this.http.get<ProductList>(`${url}/products/search?q=${key}`)
   }
-  getProductDetails(productId: number): Observable<any> {
+  getProductDetails(productId: number): Observable<Product> {
     const url = `${this.url}/products/${productId}`;
-    return this.http.get(url);
+    return this.http.get<Product>(url);
   }
   signUp(form:any):Observable<any>{
-  
     return this.http.post<any>(`${url}/users/add`,form)
   }
 }
