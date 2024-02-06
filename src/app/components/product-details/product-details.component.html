@@ -1,1 +1,36 @@
+<app-header></app-header>
 
+<div class="container-fluid m-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="container product bg-light p-4">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-8 col-md-6">
+                        <img [src]="product.images[0]" alt="Main Image" class="img-fluid img mb-4">
+                        <div class="row">
+                            <div *ngFor="let img of product.images" class="col-4">
+                                <img [src]="img" alt="Small Image" class="img-fluid img-small mb-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="font-weight-bold mb-4">{{ product.title }}</h2>
+                            <p class="mb-2">Price: ${{ product.price }}</p>
+                            <p class="mb-2">Stock: {{ product.stock }}</p>
+                            <p class="mb-2">Category: {{ product.category }}</p>
+                            <p class="mb-2">Discounted Price: ${{ product.price - (product.price * product.discountPercentage / 100) }}</p>
+                            <p class="mb-2">Description: {{ product.description }}</p>
+                            <p class="mb-2">Rating: {{ product.rating }}</p>
+                            <p class="mb-2">Brand: {{ product.brand }}</p>
+                        </div>
+                        <div class="mt-auto mb-4">
+                            <button class="button" (click)="buyNow()" >Buy Now</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

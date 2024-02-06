@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product, ProductList } from 'src/app/model/model';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -11,8 +12,8 @@ export class ProductListComponent {
   products: Product[] = []
   key!: string 
   constructor(
-    private service: ProductService
-    
+    private service: ProductService,
+    private router:Router
     ) {
   }
   ngOnInit() {
@@ -30,6 +31,8 @@ export class ProductListComponent {
     })
   }
   viewProduct(id:number){
+    console.log(id);
     
+    this.router.navigate(['/product-details',id])
   }
 }

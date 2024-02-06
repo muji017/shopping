@@ -20,4 +20,8 @@ export class ProductService {
   getSearchProduct(key:string):Observable<ProductList>{
     return this.http.get<ProductList>(`${url}/products/search?q=${key}`)
   }
+  getProductDetails(productId: number): Observable<any> {
+    const url = `${this.url}/products/${productId}`;
+    return this.http.get(url);
+  }
 }

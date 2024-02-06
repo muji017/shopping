@@ -10,8 +10,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { provideToastr } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,16 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    provideToastr({
+      timeOut: 2000,
+      preventDuplicates: true,
+      progressBar: true
+    }),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
