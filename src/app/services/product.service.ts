@@ -24,7 +24,7 @@ export class ProductService {
     const url = `${this.url}/products/${productId}`;
     return this.http.get<Product>(url);
   }
-  signUp(form:any):Observable<any>{
+  signUp(form:FormData):Observable<any>{
     return this.http.post<any>(`${url}/users/add`,form)
   }
 }
