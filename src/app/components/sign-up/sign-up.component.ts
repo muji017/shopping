@@ -14,27 +14,29 @@ export class SignUpComponent {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private service:ProductService 
+    private service: ProductService
   ) { }
   ngOnInit() {
     this.signupForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      age: ['', Validators.required],
-      gender: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      phone: ['', Validators.required]
+      firstName:this.fb.control('', Validators.required),
+      lastName:this.fb.control('', Validators.required),
+      age:this.fb.control('', Validators.required),
+      gender:this.fb.control('', Validators.required),
+      email:this.fb.control('', [Validators.required, Validators.email]),
+      username:this.fb.control('', Validators.required),
+      password:this.fb.control('', Validators.required),
+      phone:this.fb.control('', Validators.required)
     });
   }
   onSubmit() {
     if (!this.signupForm.valid) {
       this.toastr.warning("Field is empty")
       return
-    } 
-    const form:any=this.signupForm
-    this.service.signUp(form).subscribe((res)=>{
+    }
+    const form=this.signupForm.value
+    this.service.signUp(form).subscribe((res) => {
+      console.log(res);
+
       this.toastr.success('Successfully registered');
     })
   }
