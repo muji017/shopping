@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,11 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignUpComponent {
 
-  signupForm!:FormGroup
+  signupForm!: FormGroup
   constructor(
-    private fb:FormBuilder,
-    private toastr:ToastrService
-  ){}
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private service:ProductService 
+  ) { }
   ngOnInit() {
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -26,10 +28,14 @@ export class SignUpComponent {
       phone: ['', Validators.required]
     });
   }
-  onSubmit(){
-    if (this.signupForm.valid) {
-      this.toastr.warning(this.signupForm.value)
-    } else {
-    }
+  onSubmit() {
+    if (!this.signupForm.valid) {
+      this.toastr.warning("Field is empty")
+      return
+    } 
+    const form:any=this.signupForm
+    this.service.signUp(form).subscribe((res)=>{
+      this.toastr.success('Successfully registered');
+    })
   }
 }
